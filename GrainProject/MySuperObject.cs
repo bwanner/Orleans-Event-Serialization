@@ -6,19 +6,9 @@ namespace GrainProject
     {
         public MySuperObject(Guid guid)
         {
-            MyObject = new MyObject(guid.ToString()); 
+            MyObject = new MyObject(); 
         }
 
         public MyObject MyObject { get; set; }
-
-        public void Subscribe()
-        {
-            MyObject.MyEvent += SuperMethod;
-        }
-
-        private void SuperMethod(object sender, EventArgs e)
-        {
-            Console.WriteLine("Event called");
-        }
     }
 }

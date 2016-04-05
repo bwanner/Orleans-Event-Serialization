@@ -10,8 +10,7 @@ namespace TestProject
     [TestClass]
     public class UnitTest1 : TestingSiloHost
     {
-        [TestMethod]
-        public async Task TestMethod1()
+        private async Task DefaultTestMethod()
         {
             var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
             var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
@@ -22,52 +21,54 @@ namespace TestProject
 
             await g1.SubscribeEventAndEmitMyObject();
             Assert.IsTrue(await g2.EventHasNoSubscribers());
+        }
 
+        [TestMethod]
+        public async Task TestMethod1()
+        {
+            await DefaultTestMethod();
         }
 
         [TestMethod]
         public async Task TestMethod2()
         {
-            var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
-            var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
-
-            Assert.IsTrue(await g1.EventHasNoSubscribers());
-
-            await g2.SubscribeTo(g1.GetPrimaryKey());
-
-            await g1.SubscribeEventAndEmitMyObject();
-            Assert.IsTrue(await g2.EventHasNoSubscribers());
-
+            await DefaultTestMethod();
         }
 
         [TestMethod]
         public async Task TestMethod3()
         {
-            var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
-            var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
-
-            Assert.IsTrue(await g1.EventHasNoSubscribers());
-
-            await g2.SubscribeTo(g1.GetPrimaryKey());
-
-            await g1.SubscribeEventAndEmitMyObject();
-            Assert.IsTrue(await g2.EventHasNoSubscribers());
-
+            await DefaultTestMethod();
         }
 
         [TestMethod]
         public async Task TestMethod4()
         {
-            var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
-            var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
+            await DefaultTestMethod();
+        }
 
-            Assert.IsTrue(await g1.EventHasNoSubscribers());
+        [TestMethod]
+        public async Task TestMethod5()
+        {
+            await DefaultTestMethod();
+        }
 
-            await g2.SubscribeTo(g1.GetPrimaryKey());
+        [TestMethod]
+        public async Task TestMethod6()
+        {
+            await DefaultTestMethod();
+        }
 
-            await g1.SubscribeEventAndEmitMyObject();
-            Assert.IsTrue(await g2.EventHasNoSubscribers());
+        [TestMethod]
+        public async Task TestMethod7()
+        {
+            await DefaultTestMethod();
+        }
 
+        [TestMethod]
+        public async Task TestMethod8()
+        {
+            await DefaultTestMethod();
         }
     }
 }

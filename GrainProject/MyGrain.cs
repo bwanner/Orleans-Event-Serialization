@@ -47,11 +47,5 @@ namespace GrainProject
         {
             return Task.FromResult(_holder.MyObject.HasNoSubscribers());
         }
-
-        public Task SubscribeToEvent()
-        {
-            //_holder.Subscribe();
-            return TaskDone.Done;
-        }
     }
 }

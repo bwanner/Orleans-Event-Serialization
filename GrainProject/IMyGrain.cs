@@ -8,12 +8,12 @@ namespace GrainProject
     {
         Task SubscribeTo(Guid guid);
 
-        Task SubscribeEventAndEmitMyObjectViaStream();
+        Task EmitMyObjectViaStream();
 
         Task EmitMyObjectViaMethodCall(IMyGrain other);
 
         Task ReceiveMyObject(MyObject myObject);
 
-        Task<bool> EventHasNoSubscribers();
+        Task<bool> MyObjectTransferredCorrectly();
     }
 }

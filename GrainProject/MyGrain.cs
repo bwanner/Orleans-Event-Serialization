@@ -18,24 +18,21 @@ namespace GrainProject
             return base.OnActivateAsync();
         }
 
-
         public async Task SubscribeTo(Guid guid)
         {
             var stream = GetStreamProvider("SMS").GetStream<MyObject>(guid, "Namespace");
             await stream.SubscribeAsync(OnNextAsync);
         }
 
-        public async Task SubscribeEventAndEmitMyObjectViaStream()
+        public async Task EmitMyObjectViaStream()
         {
             var stream = GetStreamProvider("SMS").GetStream<MyObject>(this.GetPrimaryKey(), "Namespace");
-            _myObject.MyEvent += XOnMyEvent;
             _myObject.MyString = Guid.NewGuid().ToString();
             await stream.OnNextAsync(_myObject);
         }
 
         public async Task EmitMyObjectViaMethodCall(IMyGrain other)
         {
-            _myObject.MyEvent += XOnMyEvent;
             _myObject.MyString = Guid.NewGuid().ToString();
             await other.ReceiveMyObject(_myObject);
         }
@@ -46,20 +43,15 @@ namespace GrainProject
             return TaskDone.Done;
         }
 
-        private void XOnMyEvent(object sender, EventArgs eventArgs)
-        {
-            throw new NotImplementedException();
-        }
-
         private Task OnNextAsync(MyObject myObject, StreamSequenceToken streamSequenceToken)
         {
             _myObject = myObject;
             return TaskDone.Done;
         }
 
-        public Task<bool> EventHasNoSubscribers()
+        public Task<bool> MyObjectTransferredCorrectly()
         {
-            return Task.FromResult(_myObject.HasNoSubscribers());
+            return Task.FromResult(_myObject.StringNull);
         }
     }
 }

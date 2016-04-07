@@ -38,8 +38,8 @@ namespace OrleansApp
 
                 await g2.SubscribeTo(g1.GetPrimaryKey());
 
-                await g1.SubscribeEventAndEmitMyObjectViaStream();
-                bool hasNoSubscribers = await g2.EventHasNoSubscribers();
+                await g1.EmitMyObjectViaStream();
+                bool hasNoSubscribers = await g2.MyObjectTransferredCorrectly();
 
                 Console.WriteLine("Event has no subscribers: {0}", hasNoSubscribers);
 

@@ -11,19 +11,17 @@ namespace TestProject
     [TestClass]
     public class UnitTest1 : TestingSiloHost
     {
-        public UnitTest1() : base(new TestingSiloOptions() {StartSecondary = false}) { }
+        //public UnitTest1() : base(new TestingSiloOptions() {StartSecondary = false}) { }
 
         private async Task TestSendViaStream()
         {
             var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
             var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
 
-            Assert.IsTrue(await g1.EventHasNoSubscribers());
-
             await g2.SubscribeTo(g1.GetPrimaryKey());
 
-            await g1.SubscribeEventAndEmitMyObjectViaStream();
-            Assert.IsTrue(await g2.EventHasNoSubscribers());
+            await g1.EmitMyObjectViaStream();
+            Assert.IsTrue(await g2.MyObjectTransferredCorrectly());
         }
 
         private async Task TestSendViaMethodCall()
@@ -31,12 +29,10 @@ namespace TestProject
             var g1 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
             var g2 = GrainClient.GrainFactory.GetGrain<IMyGrain>(Guid.NewGuid());
 
-            Assert.IsTrue(await g1.EventHasNoSubscribers());
-
             await g2.SubscribeTo(g1.GetPrimaryKey());
 
             await g1.EmitMyObjectViaMethodCall(g2);
-            Assert.IsTrue(await g2.EventHasNoSubscribers());
+            Assert.IsTrue(await g2.MyObjectTransferredCorrectly());
         }
 
         [TestMethod]

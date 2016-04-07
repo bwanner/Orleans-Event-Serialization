@@ -10,11 +10,11 @@ namespace GrainProject
 {
     public class MyGrain : Grain, IMyGrain
     {
-        private MySuperObject _holder;
+        private MyObject _myObject;
 
         public override Task OnActivateAsync()
         {
-            _holder = new MySuperObject(this.GetPrimaryKey());
+            _myObject = new MyObject();
             return base.OnActivateAsync();
         }
 
@@ -25,11 +25,25 @@ namespace GrainProject
             await stream.SubscribeAsync(OnNextAsync);
         }
 
-        public async Task SubscribeEventAndEmitMyObject()
+        public async Task SubscribeEventAndEmitMyObjectViaStream()
         {
             var stream = GetStreamProvider("SMS").GetStream<MyObject>(this.GetPrimaryKey(), "Namespace");
-            _holder.MyObject.MyEvent += XOnMyEvent;
-            await stream.OnNextAsync(_holder.MyObject);
+            _myObject.MyEvent += XOnMyEvent;
+            _myObject.MyString = Guid.NewGuid().ToString();
+            await stream.OnNextAsync(_myObject);
+        }
+
+        public async Task EmitMyObjectViaMethodCall(IMyGrain other)
+        {
+            _myObject.MyEvent += XOnMyEvent;
+            _myObject.MyString = Guid.NewGuid().ToString();
+            await other.ReceiveMyObject(_myObject);
+        }
+
+        public Task ReceiveMyObject(MyObject myObject)
+        {
+            _myObject = myObject;
+            return TaskDone.Done;
         }
 
         private void XOnMyEvent(object sender, EventArgs eventArgs)
@@ -39,13 +53,13 @@ namespace GrainProject
 
         private Task OnNextAsync(MyObject myObject, StreamSequenceToken streamSequenceToken)
         {
-            _holder.MyObject = myObject;
+            _myObject = myObject;
             return TaskDone.Done;
         }
 
         public Task<bool> EventHasNoSubscribers()
         {
-            return Task.FromResult(_holder.MyObject.HasNoSubscribers());
+            return Task.FromResult(_myObject.HasNoSubscribers());
         }
     }
 }

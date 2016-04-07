@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GrainProject", "GrainProjec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject", "TestProject\TestProject.csproj", "{50973100-FD68-4181-BB9F-EB35F8CD6EA7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrleansApp", "OrleansApp\OrleansApp.csproj", "{8E2892AE-CC81-47F8-8B2A-E231BA437427}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{50973100-FD68-4181-BB9F-EB35F8CD6EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50973100-FD68-4181-BB9F-EB35F8CD6EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50973100-FD68-4181-BB9F-EB35F8CD6EA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2892AE-CC81-47F8-8B2A-E231BA437427}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2892AE-CC81-47F8-8B2A-E231BA437427}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2892AE-CC81-47F8-8B2A-E231BA437427}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2892AE-CC81-47F8-8B2A-E231BA437427}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
